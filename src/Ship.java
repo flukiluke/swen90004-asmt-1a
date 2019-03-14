@@ -15,7 +15,7 @@ public class Ship {
     private static int nextId = 1;
 
     // a flag indicating whether the ship is currently loaded
-    int loaded;
+    private boolean loaded;
 
     // create a new vessel with a given identifier
     private Ship(int id) {

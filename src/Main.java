@@ -18,10 +18,10 @@ public class Main {
     public static void main(String [] args) throws InterruptedException {
 
         // generate the locations and tugs
-        WaitZone arrivalZone = new WaitZone("arrival");
-        WaitZone departureZone = new WaitZone("departure");
+        ArrivalZone arrivalZone = new ArrivalZone();
+        DepartureZone departureZone = new DepartureZone();
         Tugs tugs = new Tugs(Params.NUM_TUGS);
-        Berth berth = new Berth("berth");
+        Berth berth = new Berth();
 
         // generate the producer, consumer and operator processes
         Producer producer = new Producer(arrivalZone);

@@ -8,10 +8,10 @@
 public class Consumer extends Thread {
 
     // the wait zone from which cargo ships depart
-    private WaitZone departureZone;
+    private DepartureZone departureZone;
 
     // creates a new consumer for the given wait zone
-    Consumer(WaitZone newDepartureZone) {
+    Consumer(DepartureZone newDepartureZone) {
         this.departureZone = newDepartureZone;
     }
 

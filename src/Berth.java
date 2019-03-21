@@ -1,10 +1,6 @@
 public class Berth extends Location {
     private volatile boolean shieldActivated = false;
 
-    public Berth(String name) {
-        super(name);
-    }
-
     public synchronized void triggerShield() throws InterruptedException {
         shieldActivated = true;
         System.out.println("Shield activated");

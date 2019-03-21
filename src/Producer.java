@@ -8,10 +8,10 @@
 public class Producer extends Thread {
 
     // the wait zone at which ships will arrive
-    private WaitZone arrivalZone;
+    private ArrivalZone arrivalZone;
 
     // create a new producer
-    Producer(WaitZone newArrivalZone) {
+    Producer(ArrivalZone newArrivalZone) {
         this.arrivalZone = newArrivalZone;
     }
 

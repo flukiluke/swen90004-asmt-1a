@@ -13,7 +13,7 @@ public class Tugs {
         }
         freeTugs -= numRequested;
         notifyAll();
-        System.out.format("pilot %d acquires %d tugs (%d available)\n", pilotId, numRequested, freeTugs);
+        System.out.format("pilot %d acquires %d tugs (%d available).\n", pilotId, numRequested, freeTugs);
     }
 
     public synchronized void release(int numReleased, int pilotId) {

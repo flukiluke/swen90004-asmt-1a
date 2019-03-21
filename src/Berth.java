@@ -3,11 +3,11 @@ public class Berth extends Location {
 
     public synchronized void triggerShield() throws InterruptedException {
         shieldActivated = true;
-        System.out.println("Shield activated");
+        System.out.println("Shield is activated.");
         notifyAll();
         Thread.sleep(Params.DEBRIS_TIME);
         shieldActivated = false;
-        System.out.println("Shield deactivated");
+        System.out.println("Shield is deactivated.");
         notifyAll();
     }
 
@@ -17,7 +17,7 @@ public class Berth extends Location {
             wait();
         }
         super.arrive(ship);
-        System.out.format("ship [%d] docks at berth\n", ship.id);
+        System.out.format("ship [%d] docks at berth.\n", ship.id);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class Berth extends Location {
             wait();
         }
         Ship ship = super.depart();
-        System.out.format("ship [%d] undocks from berth\n", ship.id);
+        System.out.format("ship [%d] undocks from berth.\n", ship.id);
         return ship;
     }
 }

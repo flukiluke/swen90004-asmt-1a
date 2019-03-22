@@ -20,8 +20,7 @@ public class Pilot extends Thread {
       while (true) {
         // Main logic of simulation. Heavily documented for my own sanity.
         // Send pilot aboard a ship in the arrival zone
-        ship = arrivalZone.depart();
-        System.out.format("pilot %d acquires ship [%d].\n", id, ship.id);
+        ship = arrivalZone.depart(id);
 
         // Get tugs needed for docking
         tugs.acquire(Params.DOCKING_TUGS, id);
@@ -46,9 +45,11 @@ public class Pilot extends Thread {
         Thread.sleep(Params.TRAVEL_TIME);
         departureZone.arrive(ship);
 
+        // Spec shows pilot releasing ship before releasing tugs
+        System.out.format("pilot %d releases ship [%d].\n", id, ship.id);
+
         // Tugs are required until the ship arrives at the departure zone
         tugs.release(Params.UNDOCKING_TUGS, id);
-        System.out.format("pilot %d releases ship [%d].\n", id, ship.id);
       }
     } catch (InterruptedException e) {
       this.interrupt();

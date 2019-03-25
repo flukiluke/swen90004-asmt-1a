@@ -1,6 +1,20 @@
+/**
+ * The Berth is where ships are docked so they can be unloaded.
+ *
+ * Behaves as per the base Location class, but adds extra behaviour to trigger
+ * a shield that prevents docking & undocking.
+ *
+ * @author Luke Ceddia [834076]
+ */
 public class Berth extends Location {
+  // State of the shield; docking & undocking must wait for deactivated shield.
   private volatile boolean shieldActivated = false;
 
+  /**
+   * Activate the shield, and prevent and docking or undocking manoeuvres from
+   * starting. The shield lasts for Params.DEBRIS_TIME. This function only
+   * returns once the shield has expired.
+   */
   public synchronized void triggerShield() throws InterruptedException {
     shieldActivated = true;
     System.out.println("Shield is activated.");

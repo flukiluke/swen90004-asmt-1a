@@ -50,6 +50,7 @@ public class Pilot extends Thread {
         tugs.release(Params.DOCKING_TUGS, id);
 
         // Unload cargo
+        System.out.format("ship [%d] being unloaded.\n", ship.id);
         Thread.sleep(Params.UNLOADING_TIME);
 
         // Undocking procedure

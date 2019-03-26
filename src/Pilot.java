@@ -15,6 +15,14 @@ public class Pilot extends Thread {
   // Manager for all tugships
   private final Tugs tugs;
 
+  /**
+   * Create new pilot, intended to run in its own thread.
+   * @param id Assumed-unique identifier
+   * @param arrivalZone Location to acquire ships from
+   * @param departureZone Location to send ships to after unloading
+   * @param tugs The tugs manager object
+   * @param berth Location to dock ships for unloading
+   */
   public Pilot(int id, ArrivalZone arrivalZone, DepartureZone departureZone,
                Tugs tugs, Berth berth) {
     this.id = id;

@@ -10,6 +10,10 @@ public class Operator extends Thread {
   // The shield is a feature of the Berth object
   private final Berth berth;
 
+  /**
+   * Initialise the Operator at the start of simulation.
+   * @param berth The berth to trigger the shield on.
+   */
   public Operator(Berth berth) {
     this.berth = berth;
   }

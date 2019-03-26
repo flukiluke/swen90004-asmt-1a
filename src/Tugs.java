@@ -15,6 +15,10 @@ public class Tugs {
   // Number of tugs not locked by a pilot
   private volatile int freeTugs;
 
+  /**
+   * Initialise tugs in simulation. At start, no tugs are allocated.
+   * @param totalTugs Number of tugs in simulation
+   */
   public Tugs(int totalTugs) {
     this.totalTugs = totalTugs;
     this.freeTugs = totalTugs;

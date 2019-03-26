@@ -2,6 +2,7 @@
  * Produces new cargo ships wanting to unload cargo at the space station.
  *
  * @author ngeard@unimelb.edu.au
+ * @author Luke Ceddia [834076]
  */
 
 public class Producer extends Thread {

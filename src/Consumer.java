@@ -1,7 +1,8 @@
 /**
- * Consumes unloaded cargo ships from the departure zone.
+ * Removes unloaded cargo ships from the departure zone.
  *
  * @author ngeard@unimelb.edu.au
+ * @author Luke Ceddia [834076]
  */
 
 public class Consumer extends Thread {

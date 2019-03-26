@@ -1,11 +1,14 @@
 /**
  * The top-level component of the space station docking simulator.
- * <p>
+ *
  * It is responsible for:
  * - creating all the components of the system;
  * - starting all of the processes;
  *
+ * For business logic of the simulation, see the Pilot class.
+ *
  * @author ngeard@unimelb.edu.au
+ * @author Luke Ceddia [834076]
  */
 
 public class Main {

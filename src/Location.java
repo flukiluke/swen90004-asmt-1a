@@ -7,7 +7,7 @@
  */
 abstract public class Location {
   // The ship currently at this location, if any.
-  private Ship heldShip = null;
+  private volatile Ship heldShip = null;
 
   /**
    * Insert a ship into this location. Will only return when a place is
@@ -16,6 +16,7 @@ abstract public class Location {
    * @param ship Ship to be inserted
    */
   public synchronized void arrive(Ship ship) throws InterruptedException {
+    // Block until space in the location is available
     while (heldShip != null) {
       wait();
     }
@@ -30,6 +31,7 @@ abstract public class Location {
    * @return Ship that was at this location
    */
   public synchronized Ship depart() throws InterruptedException {
+    // Block until a ship is present
     while (heldShip == null) {
       wait();
     }

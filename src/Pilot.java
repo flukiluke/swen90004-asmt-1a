@@ -1,9 +1,19 @@
+/**
+ * Contains the main logic and lifecycle of a ship.
+ *
+ * The Pilot is responsible for acquiring ships & tugs and moving them between
+ * the various locations.
+ */
 public class Pilot extends Thread {
+  // Simulation-unique identifier
   private final int id;
+  // Various locations a ship can be at
   private final ArrivalZone arrivalZone;
   private final DepartureZone departureZone;
-  private final Tugs tugs;
   private final Berth berth;
+
+  // Manager for all tugships
+  private final Tugs tugs;
 
   public Pilot(int id, ArrivalZone arrivalZone, DepartureZone departureZone,
                Tugs tugs, Berth berth) {
@@ -14,6 +24,12 @@ public class Pilot extends Thread {
     this.berth = berth;
   }
 
+  /**
+   * Runs continuously. Acquires a ship from the arrival zone, then moves it
+   * to the berth and departure zone, acquiring and releasing rugs as needed.
+   *
+   * Each step of the simulation is justified in the method body.
+   */
   public void run() {
     Ship ship;
     try {
@@ -45,7 +61,7 @@ public class Pilot extends Thread {
         Thread.sleep(Params.TRAVEL_TIME);
         departureZone.arrive(ship);
 
-        // Spec shows pilot releasing ship before releasing tugs
+        // Spec logs show pilot releasing ship before releasing tugs
         System.out.format("pilot %d releases ship [%d].\n", id, ship.id);
 
         // Tugs are required until the ship arrives at the departure zone

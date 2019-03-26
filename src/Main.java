@@ -7,6 +7,13 @@
  *
  * For business logic of the simulation, see the Pilot class.
  *
+ * Please note the following pertinent changes from the supplied skeleton code:
+ *  - The arrival and departure zones are separate classes
+ *  - The constructors for the arrival/departure zones and berth now take no
+ *    parameters.
+ *  Having separate classes made it easier to get the logging output correct,
+ *  as each location has separate logging requirements.
+ *
  * @author ngeard@unimelb.edu.au
  * @author Luke Ceddia [834076]
  */

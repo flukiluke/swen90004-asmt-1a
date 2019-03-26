@@ -8,7 +8,7 @@
 public class Ship {
 
   // a unique identifier for this cargo ship
-  public final int id;
+  private final int id;
 
   // the next ID to be allocated
   private static int nextId = 1;
@@ -28,6 +28,7 @@ public class Ship {
   }
 
   // produce an identifying string for the cargo ship
+  @Override
   public String toString() {
     return "ship [" + id + "]";
   }

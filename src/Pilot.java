@@ -24,6 +24,11 @@ public class Pilot extends Thread {
     this.berth = berth;
   }
 
+  @Override
+  public String toString() {
+    return "pilot " + id;
+  }
+
   /**
    * Runs continuously. Acquires a ship from the arrival zone, then moves it
    * to the berth and departure zone, acquiring and releasing rugs as needed.
@@ -36,10 +41,10 @@ public class Pilot extends Thread {
       while (true) {
         // Main logic of simulation. Heavily documented for my own sanity.
         // Send pilot aboard a ship in the arrival zone
-        ship = arrivalZone.depart(id);
+        ship = arrivalZone.depart(this);
 
         // Get tugs needed for docking
-        tugs.acquire(Params.DOCKING_TUGS, id);
+        tugs.acquire(Params.DOCKING_TUGS, this);
 
         // Travel to vicinity of berth
         Thread.sleep(Params.TRAVEL_TIME);
@@ -47,14 +52,14 @@ public class Pilot extends Thread {
         // Dock at berth (will only complete when shield is down)
         berth.arrive(ship);
         Thread.sleep(Params.DOCKING_TIME);
-        tugs.release(Params.DOCKING_TUGS, id);
+        tugs.release(Params.DOCKING_TUGS, this);
 
         // Unload cargo
-        System.out.format("ship [%d] being unloaded.\n", ship.id);
+        System.out.format("%s being unloaded.\n", ship);
         Thread.sleep(Params.UNLOADING_TIME);
 
         // Undocking procedure
-        tugs.acquire(Params.UNDOCKING_TUGS, id);
+        tugs.acquire(Params.UNDOCKING_TUGS, this);
         berth.depart();
         Thread.sleep(Params.UNDOCKING_TIME);
 
@@ -63,10 +68,10 @@ public class Pilot extends Thread {
         departureZone.arrive(ship);
 
         // Spec logs show pilot releasing ship before releasing tugs
-        System.out.format("pilot %d releases ship [%d].\n", id, ship.id);
+        System.out.format("%s releases %s.\n", this, ship);
 
         // Tugs are required until the ship arrives at the departure zone
-        tugs.release(Params.UNDOCKING_TUGS, id);
+        tugs.release(Params.UNDOCKING_TUGS, this);
       }
     } catch (InterruptedException e) {
       this.interrupt();

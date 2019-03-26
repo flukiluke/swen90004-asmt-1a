@@ -25,9 +25,9 @@ public class Tugs {
    * are available, blocks until there are.
    *
    * @param numRequested Number of tugs to acquire
-   * @param pilotId The pilot wishing to acquire the tugs
+   * @param pilot The pilot wishing to acquire the tugs
    */
-  public synchronized void acquire(int numRequested, int pilotId)
+  public synchronized void acquire(int numRequested, Pilot pilot)
           throws InterruptedException {
     // Block until sufficient tugs available
     while (freeTugs < numRequested) {
@@ -35,8 +35,8 @@ public class Tugs {
     }
     freeTugs -= numRequested;
     notifyAll();
-    System.out.format("pilot %d acquires %d tugs (%d available).\n",
-            pilotId, numRequested, freeTugs);
+    System.out.format("%s acquires %d tugs (%d available).\n",
+            pilot, numRequested, freeTugs);
   }
 
   /**
@@ -44,12 +44,12 @@ public class Tugs {
    * to only release at most the number of tugs it has acquired.
    *
    * @param numReleased Number of tugs to release back to the free pool
-   * @param pilotId The pilot releasing the tugs
+   * @param pilot The pilot releasing the tugs
    */
-  public synchronized void release(int numReleased, int pilotId) {
+  public synchronized void release(int numReleased, Pilot pilot) {
     freeTugs += numReleased;
     notifyAll();
-    System.out.format("pilot %d releases %d tugs (%d available).\n",
-            pilotId, numReleased, freeTugs);
+    System.out.format("%s releases %d tugs (%d available).\n",
+            pilot, numReleased, freeTugs);
   }
 }

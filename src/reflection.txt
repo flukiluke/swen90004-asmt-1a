@@ -1,0 +1,55 @@
+SWEN90004 (2019) Assignment 1A Reflection
+Luke Ceddia [834076]
+
+With the default parameters the simulation runs well, processing ships in a
+roughly sequential fashion. The first impression one gets when looking at the
+output is the unpredictability of the scheduler — the order in which pilots are
+assigned to ships seems to vary wildly.
+
+It is easy to cause a deadlock by decreasing the number of tugs to 4 - this gets
+the system into a state where 3 tugs are acquired by a ship waiting to dock but
+there is not 2 tugs available to undock the berthed ship, and we see no output
+other than the shield being raised and lowered. In general, we need at least
+DOCKING_TUGS + UNDOCKING_TUGS available. A solution to this particular problem
+would be to obtain a lock on the berth before acquiring tugs, as then whichever
+pilot has locked the berth has access to the full pool of tugs (some may be
+currently busy moving a ship to the departure zone but that operation always
+completed after sufficient time).
+
+It is also apparent that the single berth is a bottleneck in the system - we can
+have lots of tugs and pilots taking many ships out of the arrival zone, but they
+still must all proceed in a sequential fashion throught the docking & unloading
+process. No doubt having multiple berths would increase the efficiency of the
+mining program, increasing the throughput of the berth.
+
+In addition to what has an effect, it is interesting to note that changing the
+timing parameters do not have a very large influence on the general behaviour of
+the system, aside from the speed the simulation progresses at. Some
+interleavings are changed (due to threads becoming runnable in a different
+order), but still with the same general order of events.
+
+With regards to implementation, the ordering of the log messages was
+particularly interesting. A naïve solution gave output such as a ship arriving
+at the arrival zone before the previous ship had left it. This was because the
+logging was being done outside the synchronised methods on the arrival zone, and
+highlighted the high amount of interleaving that actually occurs in concurrent
+systems.
+
+I have also made an explicit decision for Berth.triggerShield() to not return
+until the shield has deactivated. This keeps the timing code in one method, and
+avoids the scenario where the shield is triggered while already active.
+Importantly, it also allows for a simpler Berth class; the reader will note
+there is no explicit instance variable to mark the shield as active; we rely on
+tiggerShield()'s intrinsic lock on the object to prevent othe threads entering
+the arrive & depart methods.
+
+I would also like to highlight the Tugs.release() method. As I note in the
+source, there is nothing to stop a pilot releasing more tugs than it had
+acquired. This is not an issue in the current system, but if this simulation
+were being extended to a more properly distributed system with untrusted
+processes acting as pilots, a more rigorous method of tracking acquired tugs
+would be needed — perhaps using a pool of unique identifiers to track tugs.
+
+Overall a most interesting assignment, providing good insight to the trickiness
+and novelty of concurrent programming. Finally, to the lecturer: the USS Emafor
+is a terrible pun; I love it.
